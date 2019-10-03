@@ -44,11 +44,19 @@ public class SearchFragment extends Fragment {
         getActivity().getFragmentManager().popBackStack();
     }
 
-    public void search(final View v) {
-        Intent i = new Intent();
-        i.putExtra("STARTDATE", fromDate.getText().toString());
-        i.putExtra("ENDDATE", toDate.getText().toString());
-        getActivity().setResult(Activity.RESULT_OK, i);
-        getActivity().getFragmentManager().popBackStack();
+    public void search2(final View v) {
+//        Intent i = new Intent();
+//        i.putExtra("STARTDATE", fromDate.getText().toString());
+//        i.putExtra("ENDDATE", toDate.getText().toString());
+//        getActivity().setResult(Activity.RESULT_OK, i);
+//        getActivity().getFragmentManager().popBackStack();
+
+        PhotosFragment f = new PhotosFragment();
+        Bundle args = new Bundle();
+        args.putInt("startIndex", 1);
+        args.putInt("endIndex", 5);
+        f.setArguments(args);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                f).commit();
     }
 }
