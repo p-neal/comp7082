@@ -7,13 +7,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    public static final int SEARCH_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             navView.setCheckedItem(R.id.nav_photos);
         }
     }
+    // Search activity
+    private View.OnClickListener filterListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent i = new Intent(MainActivity.this, SearchActivity.class);
+            startActivityForResult(i, SEARCH_ACTIVITY_REQUEST_CODE);
+        }
+    };
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -53,6 +63,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AlbumsFragment()).commit();
                 break;
+           //needs work
+            case R.id.nav_search:
+            //    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new SearchActivity();
         }
         // Close navigation drawer
         drawer.closeDrawer(GravityCompat.START);
