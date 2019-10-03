@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FileProvider fileProvider;
 
-    protected void takePicture(View v) {
+    protected void takePicture() {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 
@@ -47,17 +47,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // ensure that there's a camera activity to handle the intent
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 // create the file where the photo should go
-                File photofile = null;
+                File photoFile = null;
                 try {
-                    photofile = createImageFile();
+                    photoFile = createImageFile();
                 } catch (IOException ex) {
                     // error occurred while creating the file
                 }
 
                 // continue only if the file was successfully created
-                if (photofile != null) {
-                    Uri photouri = fileProvider.getUriForFile(this, "com.example.mnm.photogallery.fileprovider", photofile);
-                    takepictureintent.putExtra(mediaStore.EXTRA_OUTPUT, photouri);
+                if (null != photoFile) {
+                    //Uri photouri = fileProvider.getUriForFile(this, "com.example.photogallery.fileprovider", photoFile);
+                    final Intent intent = takepictureintent.putExtra(mediaStore.EXTRA_OUTPUT, photoFile);
                     startActivityForResult(takepictureintent, REQUEST_IMAGE_CAPTURE);
                 }
             }
@@ -113,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AlbumsFragment()).commit();
                 break;
+            case R.id.nav_camera:
+                takePicture();
+                break;
+
         }
         // Close navigation drawer
         drawer.closeDrawer(GravityCompat.START);
