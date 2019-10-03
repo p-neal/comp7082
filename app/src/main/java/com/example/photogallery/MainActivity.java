@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AlbumsFragment()).commit();
                 break;
-           //needs work
             case R.id.nav_search:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new SearchFragment()).commit();
