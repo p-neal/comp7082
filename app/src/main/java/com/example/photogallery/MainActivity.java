@@ -65,8 +65,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 break;
            //needs work
             case R.id.nav_search:
-            //    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new SearchActivity();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new SearchFragment()).commit();
+                break;
         }
         // Close navigation drawer
         drawer.closeDrawer(GravityCompat.START);
