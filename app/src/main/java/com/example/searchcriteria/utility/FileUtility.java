@@ -14,9 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Utility for file manipulation
+ */
 public class FileUtility implements FileManipulation {
 
-
+    /**
+     * {@inheritDoc}
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<String> populateFolderPath(String filepath) throws IOException {
@@ -27,6 +32,9 @@ public class FileUtility implements FileManipulation {
         return pathfiles;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<String> populateFilePath(String filepath) throws IOException {

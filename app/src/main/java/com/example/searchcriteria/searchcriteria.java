@@ -9,19 +9,27 @@ import com.example.searchcriteria.utility.FileUtility;
 import java.io.IOException;
 import java.util.List;
 
-public class searchcriteria {
+/**
+ * Search files and folders
+ */
+public class searchCriteria {
     protected String filePath;
     protected Criteria searchCriteria;
     FileUtility fileUtility;
 
-    public searchcriteria(Criteria searchCriteria, String filePath){
+    public searchCriteria(Criteria searchCriteria, String filePath){
         fileUtility = new FileUtility();
         this.searchCriteria = searchCriteria;
         this.filePath = filePath;
     }
 
+    /**
+     * Search paths based on criteria
+     * @return filteredPath
+     * @throws IOException
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<String> searchFilePath(Criteria searchCriteria, String filePath) throws IOException {
+    public List<String> searchPath() throws IOException {
 
         List<String> filteredPath = null;
 
@@ -30,7 +38,7 @@ public class searchcriteria {
                 filteredPath = fileUtility.populateFilePath(filePath);
                 break;
             case folders:
-                filteredPath = fileUtility.populateFilePath(filePath);
+                filteredPath = fileUtility.populateFolderPath(filePath);
                 break;
         }
 
