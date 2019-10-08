@@ -23,7 +23,7 @@ public class ManipulateImage extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         //Initialize navigation buttons
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.view_img);
         Button buttonLeft = findViewById(R.id.buttonLeft);
         Button buttonRight = findViewById(R.id.buttonRight);
         buttonLeft.setOnClickListener(this);

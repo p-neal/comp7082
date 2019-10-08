@@ -28,12 +28,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    
+    private DrawerLayout drawer;
+
     static final int REQUEST_IMAGE_CAPTURE = 0;
 
-    private DrawerLayout drawer;
     private String mCurrentPhotoPath;
+
     private MediaStore mediaStore;
+
     private FileProvider fileProvider;
 
     protected void takePicture() {
