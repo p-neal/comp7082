@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,23 +22,18 @@ import android.widget.ImageView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    private DrawerLayout drawer;
-<<<<<<< HEAD
-    private int currentPhotoIndex = 0;
-    private String currentPhotoPath = null;
-    private ArrayList<String> photoGallery;
-=======
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    
     static final int REQUEST_IMAGE_CAPTURE = 0;
 
+    private DrawerLayout drawer;
     private String mCurrentPhotoPath;
-
     private MediaStore mediaStore;
-
     private FileProvider fileProvider;
 
     protected void takePicture() {
@@ -77,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
->>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,20 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new PhotosFragment()).commit();
             navView.setCheckedItem(R.id.nav_photos);
         }
-
-        //Initialize navigation buttons
-        Button buttonLeft = findViewById(R.id.buttonLeft);
-        Button buttonRight = findViewById(R.id.buttonRight);
-        buttonLeft.setOnClickListener(this);
-        buttonRight.setOnClickListener(this);
-
-        Date minDate = new Date(Long.MIN_VALUE);
-        Date maxDate = new Date(Long.MAX_VALUE);
-        photoGallery = populateGallery(minDate, maxDate);
-        Log.d("onCreate, size", Integer.toString(photoGallery.size()));
-        if (photoGallery.size() > 0)
-            currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        displayPhoto(currentPhotoPath);
     }
 
     @Override
@@ -149,46 +132,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else {
             super.onBackPressed();
         }
-    }
-
-    private ArrayList<String> populateGallery(Date minDate, Date maxDate) {
-        File file = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath(), "/app/src/main/res/drawable-xxhdpi");
-        photoGallery = new ArrayList<String>();
-        File[] fList = file.listFiles();
-        if (fList != null) {
-            for (File f : file.listFiles()) {
-                photoGallery.add(f.getPath());
-            }
-        }
-        return photoGallery;
-    }
-
-    private void displayPhoto(String path) {
-        ImageView iv = (ImageView) findViewById(R.id.ivMain);
-        iv.setImageBitmap(BitmapFactory.decodeFile(path));
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonLeft:
-                --currentPhotoIndex;
-                break;
-            case R.id.buttonRight:
-                ++currentPhotoIndex;
-                break;
-            default:
-                break;
-        }
-        if (currentPhotoIndex < 0)
-            currentPhotoIndex = 0;
-        if (currentPhotoIndex >= photoGallery.size())
-            currentPhotoIndex = photoGallery.size() - 1;
-
-        currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        Log.d("phpotoleft, size", Integer.toString(photoGallery.size()));
-        Log.d("photoleft, index", Integer.toString(currentPhotoIndex));
-        displayPhoto(currentPhotoPath);
     }
 }
