@@ -1,15 +1,16 @@
 package com.example.searchcriteria;
 
-public class FileDetails {
-    private String fileName;
+public abstract class FileDetails {
+
+    private Criteria criteria;
     private String filepath;
 
-    public String getFileName() {
-        return fileName;
+    public Criteria getCriteria() {
+        return criteria;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setCriteria(Criteria criteria) {
+        this.criteria = criteria;
     }
 
     public String getFilepath() {
@@ -18,13 +19,5 @@ public class FileDetails {
 
     public void setFilepath(String filepath) {
         this.filepath = filepath;
-    }
-
-    @Override
-    public String toString() {
-        return "FileDetails{" +
-                "fileName='" + fileName + '\'' +
-                ", filepath='" + filepath + '\'' +
-                '}';
     }
 }

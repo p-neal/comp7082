@@ -1,7 +1,9 @@
 package com.example.searchcriteria;
 
+import java.io.IOException;
+import java.util.List;
+
 public interface FileManipulation {
-    void searchFilePath(String fileName);
-    void getFilePath();
-    void populateFilePath();
+    List<String> populateFolderPath(String filepath) throws IOException;
+    List<String> populateFilePath(String filepath) throws IOException;
 }
