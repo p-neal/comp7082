@@ -22,6 +22,12 @@ allprojects {
     }
 }
 
+android {
+    lintOptions {
+        abortOnError False
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
