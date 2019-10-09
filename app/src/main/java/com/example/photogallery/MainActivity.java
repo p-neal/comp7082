@@ -16,14 +16,13 @@ import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-<<<<<<< HEAD
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-=======
->>>>>>> f4ade785b22f78cab83903b9e5719599bc1fdb2e
+
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;

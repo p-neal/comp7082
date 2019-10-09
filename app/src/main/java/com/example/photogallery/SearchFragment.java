@@ -37,6 +37,7 @@ public class SearchFragment extends Fragment {
         toDate   = (EditText) rootView.findViewById(R.id.search_toDate);
 
         return rootView;
+
     }
 
 
@@ -51,10 +52,16 @@ public class SearchFragment extends Fragment {
 //        getActivity().setResult(Activity.RESULT_OK, i);
 //        getActivity().getFragmentManager().popBackStack();
 
+        //below should be in MainActivity
+        String fromDateText = fromDate.getText().toString();
+        String toDateText = fromDate.getText().toString();
+        int  fromDateInt = Integer.parseInt(fromDateText);
+        int  toDateInt = Integer.parseInt(toDateText);
+
         PhotosFragment f = new PhotosFragment();
         Bundle args = new Bundle();
-        args.putInt("startIndex", 1);
-        args.putInt("endIndex", 5);
+        args.putInt("startIndex", fromDateInt);
+        args.putInt("endIndex", toDateInt);
         f.setArguments(args);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 f).commit();
