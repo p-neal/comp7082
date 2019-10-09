@@ -80,9 +80,4 @@ int endIndex = 6;
         }
         return theimage;
     }
-//    private ArrayList<CreateList> prepareSearch(){
-//        ArrayList<CreateList> theSearchImage = new ArrayList<>();
-//
-//        return theSearchImage;
-//    }
 }

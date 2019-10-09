@@ -1,13 +1,5 @@
 package com.example.photogallery;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.view.MenuItem;
-import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +8,12 @@ import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-
-
+import android.os.Environment;
+import android.provider.MediaStore;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
@@ -31,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout drawer;
     public static final int SEARCH_ACTIVITY_REQUEST_CODE = 0;
 
@@ -147,10 +137,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }
+
     public void search(final View v) {
 //        Intent i = new Intent();
 //        i.putExtra("STARTDATE", fromDate.getText().toString());
