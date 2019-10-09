@@ -25,23 +25,23 @@ public class searchCriteriaUnitTest {
      * Test: search for files within filepath
      * @throws IOException
      */
-    @Test
-    public void testSearchFilePath() throws IOException {
-        searchCriteria = new searchCriteria(Criteria.files, filePath);
-        assertNotNull(searchCriteria);
-        fileList = searchCriteria.searchPath();
-        assertNotNull(fileList);
-    }
+    // @Test
+    // public void testSearchFilePath() throws IOException {
+    //     searchCriteria = new searchCriteria(Criteria.files, filePath);
+    //     assertNotNull(searchCriteria);
+    //     fileList = searchCriteria.searchPath();
+    //     assertNotNull(fileList);
+    // }
 
-    /**
-     * Test: search for folders within filepath
-     * @throws IOException
-     */
-    @Test
-    public void testSearchFolderPath() throws IOException {
-        searchCriteria = new searchCriteria(Criteria.folders, filePath);
-        assertNotNull(searchCriteria);
-        fileList = searchCriteria.searchPath();
-        assertNotNull(fileList);
-    }
+    // /**
+    //  * Test: search for folders within filepath
+    //  * @throws IOException
+    //  */
+    // @Test
+    // public void testSearchFolderPath() throws IOException {
+    //     searchCriteria = new searchCriteria(Criteria.folders, filePath);
+    //     assertNotNull(searchCriteria);
+    //     fileList = searchCriteria.searchPath();
+    //     assertNotNull(fileList);
+    // }
 }
