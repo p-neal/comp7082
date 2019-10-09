@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Search files and folders
  */
-public class searchCriteria {
+class searchCriteria {
     protected String filePath;
     protected Criteria searchCriteria;
     FileUtility fileUtility;
