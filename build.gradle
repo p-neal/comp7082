@@ -24,7 +24,7 @@ allprojects {
 
 android {
     lintOptions {
-        abortOnError False
+        abortOnError false
     }
 }
 
