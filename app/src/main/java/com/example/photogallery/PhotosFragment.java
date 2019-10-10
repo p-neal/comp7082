@@ -1,5 +1,6 @@
 package com.example.photogallery;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifSubIFDDescriptor;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PhotosFragment extends Fragment {
 
@@ -23,14 +33,14 @@ int endIndex = 6;
             "Img2",
             "Img3",
             "Img4",
+            "Img5",
+            "Img6",
+            "Img7",
+            "Img8",
+            "Img9",
+            "Img10",
             "Img11",
-            "Img21",
-            "Img31",
-            "Img41",
             "Img12",
-            "Img22",
-            "Img32",
-            "Img42",
     };
 
     private final Integer image_ids[] = {
@@ -38,14 +48,14 @@ int endIndex = 6;
             R.drawable.img2,
             R.drawable.img3,
             R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img6,
+            R.drawable.img7,
+            R.drawable.img8,
+            R.drawable.img9,
+            R.drawable.img10,
             R.drawable.img11,
-            R.drawable.img21,
-            R.drawable.img31,
-            R.drawable.img41,
             R.drawable.img12,
-            R.drawable.img22,
-            R.drawable.img32,
-            R.drawable.img42,
     };
 
     @Nullable
@@ -71,13 +81,36 @@ int endIndex = 6;
     }
 
     private ArrayList<CreateList> prepareData(int startIndex, int endIndex){
-        ArrayList<CreateList> theimage = new ArrayList<>();
-        for(int i = startIndex; i< endIndex+1; i++){
-            CreateList createList = new CreateList();
-            createList.setImage_title(image_titles[i]);
-            createList.setImage_ID(image_ids[i]);
-            theimage.add(createList);
+        ArrayList<CreateList> images = new ArrayList<>();
+//        int[] drawableId = new int[12];
+        for(int i = startIndex; i < endIndex+1; i++){
+
+            String drawableName = "img" + (i + 1) + ".jpg";
+//            drawableId[i] = getResources().getIdentifier(drawableName, "drawable", "com.example.photogallery");
+
+            File img = new File(Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + R.drawable.img1 + ".jpg").toString());
+            try {
+                Metadata metadata = ImageMetadataReader.readMetadata(img);
+                CreateList createList = new CreateList();
+
+                ExifSubIFDDirectory directory
+                        = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+
+                Date date = directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+
+                createList.setImage_title(date.toString());
+                createList.setImage_ID(image_ids[i]);
+                images.add(createList);
+            } catch (ImageProcessingException e) {
+                // do nothing
+            } catch (IOException e) {
+                // do nothing
+                String aaa = "no";
+            }
+
+
+
         }
-        return theimage;
+        return images;
     }
 }
