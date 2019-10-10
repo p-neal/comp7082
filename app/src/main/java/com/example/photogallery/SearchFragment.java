@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -36,8 +37,26 @@ public class SearchFragment extends Fragment {
         fromDate = (EditText) rootView.findViewById(R.id.search_fromDate);
         toDate   = (EditText) rootView.findViewById(R.id.search_toDate);
 
-        return rootView;
+        // Forwarded onClick to this fragment from MainActivity
+        Button searchButton = (Button)rootView.findViewById(R.id.search_search);
+        searchButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String fromDateText = fromDate.getText().toString();
+                String toDateText = toDate.getText().toString();
+                int  fromDateInt = Integer.parseInt(fromDateText);
+                int  toDateInt = Integer.parseInt(toDateText);
 
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("STARTDATE", fromDateInt);
+                intent.putExtra("ENDDATE", toDateInt);
+
+                startActivity(intent);
+            }
+        });
+
+        return rootView;
     }
 
 
@@ -66,4 +85,5 @@ public class SearchFragment extends Fragment {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 f).commit();
     }
+
 }

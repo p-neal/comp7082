@@ -61,8 +61,8 @@ int endIndex = 6;
 
         Bundle args = getArguments();
         if (args != null && !args.isEmpty()) {
-            int argStartIndex = args.getInt("startIndex", 0);
-            int argEndIndex = args.getInt("endIndex", 1);
+            int argStartIndex = args.getInt("STARTDATE", 0);
+            int argEndIndex = args.getInt("ENDDATE", 1);  // 5
             ArrayList<CreateList> createLists = prepareData(argStartIndex, argEndIndex);
             ImageAdapter adapter = new ImageAdapter(getActivity().getApplicationContext(), createLists);
             recyclerView.setAdapter(adapter);

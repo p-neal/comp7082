@@ -73,7 +73,6 @@
         android:layout_marginBottom="96dp"
         android:layout_toEndOf="@+id/search_toDateLabel"
         android:layout_toRightOf="@+id/search_toDateLabel"
-        android:onClick="search"
         android:text="Search" />
 
 </RelativeLayout>

@@ -91,10 +91,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // From search fragment
+        Intent intent = getIntent();
+        int startDate = intent.getIntExtra("STARTDATE", 0);
+        int endDate = intent.getIntExtra("ENDDATE", 8);
+
         // Prevent reload after rotating the device
         if (savedInstanceState == null) {
+            PhotosFragment f = new PhotosFragment();
+            Bundle args = new Bundle();
+            args.putInt("STARTDATE", startDate);
+            args.putInt("ENDDATE", endDate);
+            f.setArguments(args);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new PhotosFragment()).commit();
+                    f).commit();
             navView.setCheckedItem(R.id.nav_photos);
         }
     }
@@ -149,6 +159,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        i.putExtra("ENDDATE", toDate.getText().toString());
 //        getActivity().setResult(Activity.RESULT_OK, i);
 //        getActivity().getFragmentManager().popBackStack();
+
+//        String fromDateText = fromDate.getText().toString();
+//        String toDateText = fromDate.getText().toString();
+//        int  fromDateInt = Integer.parseInt(fromDateText);
+//        int  toDateInt = Integer.parseInt(toDateText);
 
         PhotosFragment f = new PhotosFragment();
         Bundle args = new Bundle();
