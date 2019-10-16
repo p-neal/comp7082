@@ -1,63 +1,57 @@
 package com.example.photogallery;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AlbumsFragment extends Fragment implements View.OnClickListener {
 
-    /*@Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_albums, container, false);
-    }*/
+    Button buttonLeft;
+    Button buttonRight;
+    ImageView image;
+    private View rootView;
 
-    private ArrayList<String> photoGallery;
-    private String currentPhotoPath = null;
     private int currentPhotoIndex = 0;
+    Map<Integer, String> map = new HashMap<Integer, String>();
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //View rootView = inflater.inflate(R.layout.fragment_photos, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_albums, container, false);
+        super.onCreate(savedInstanceState);
 
-        Button buttonLeft = (Button) rootView.findViewById(R.id.buttonLeft);
-        Button buttonRight = (Button) rootView.findViewById(R.id.buttonRight);
+        rootView = inflater.inflate(R.layout.fragment_albums, container, false);
+
+        image = (ImageView) rootView.findViewById(R.id.ivMain);
+        image.setImageResource(R.drawable.img1);
+
+        buttonLeft = (Button) rootView.findViewById(R.id.buttonLeft);
+
+        buttonRight = (Button) rootView.findViewById(R.id.buttonRight);
 
         buttonLeft.setOnClickListener(this);
+
         buttonRight.setOnClickListener(this);
-
-        Date minDate = new Date(Long.MIN_VALUE);
-        Date maxDate = new Date(Long.MAX_VALUE);
-
-        photoGallery = populateGallery(minDate, maxDate);
-        Log.d("onCreate, size", Integer.toString(photoGallery.size()));
-        if (photoGallery.size() > 0)
-            currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        displayPhoto(currentPhotoPath, rootView);
 
         return rootView;
     }
 
+
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View v) {
+
+        Map<Integer, String> imageEntry = populateGallery();
+
+        switch (v.getId()) {
             case R.id.buttonLeft:
                 --currentPhotoIndex;
                 break;
@@ -67,34 +61,67 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
-        if (currentPhotoIndex < 0)
-            currentPhotoIndex = 0;
-        if (currentPhotoIndex >= photoGallery.size())
-            currentPhotoIndex = photoGallery.size() - 1;
 
-        currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        Log.d("phpotoleft, size", Integer.toString(photoGallery.size()));
-        Log.d("photoleft, index", Integer.toString(currentPhotoIndex));
-        displayPhoto(currentPhotoPath, view);
+        imageDrawable(currentPhotoIndex);
     }
 
-    private ArrayList<String> populateGallery(Date minDate, Date maxDate) {
-        File file = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath(),"/Android/data/com.example.photogallery/files/Pictures");
+    private void imageDrawable(int currentPhotoIndex)
+    {
+        Map<Integer, String> imageEntry = populateGallery();
 
-        photoGallery = new ArrayList<String>();
-        File[] fList = file.listFiles();
-        if (fList != null) {
-            for (File f : file.listFiles()) {
-                photoGallery.add(f.getPath());
+        List<String> values = new ArrayList(imageEntry.values());
+
+        int index = values.size();
+
+        if(currentPhotoIndex >= 0)
+        {
+            index = index - currentPhotoIndex;
+        }else
+        {
+            index = index + currentPhotoIndex;
+        }
+
+        int i=0;
+        for(String value: values)
+        {
+            i++;
+            if(i == index)
+            {
+                image.setImageResource(getEntry(value));
             }
         }
-        Log.d("photogallery", Integer.toString(fList.length));
-        return photoGallery;
     }
 
-    private void displayPhoto(String path, View view) {
-        ImageView iv = (ImageView) view.findViewById(R.id.ivMain);
-        iv.setImageBitmap(BitmapFactory.decodeFile(path));
+    private Integer getEntry(String value)
+    {
+        Integer key = 0;
+        Map<Integer, String> imageEntry = populateGallery();
+
+        for (Map.Entry<Integer, String> entry : imageEntry.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                key =entry.getKey();
+            }
+        }
+
+        return key;
+    }
+
+    private Map<Integer, String> populateGallery()
+    {
+
+        map.put(R.drawable.img1, "Img1");
+        map.put(R.drawable.img2, "Img2");
+        map.put(R.drawable.img3, "Img3");
+        map.put(R.drawable.img4, "Img4");
+        map.put(R.drawable.img11, "Img11");
+        map.put(R.drawable.img21, "Img21");
+        map.put(R.drawable.img31, "Img31");
+        map.put(R.drawable.img41, "Img41");
+        map.put(R.drawable.img12, "Img12");
+        map.put(R.drawable.img22, "Img22");
+        map.put(R.drawable.img32, "Img32");
+        map.put(R.drawable.img42, "Img42");
+
+        return map;
     }
 }

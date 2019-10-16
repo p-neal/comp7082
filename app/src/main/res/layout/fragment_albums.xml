@@ -1,100 +1,59 @@
-package com.example.photogallery;
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright"
+    tools:context=".AlbumsFragment">
 
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+    <ImageView
+        android:id="@+id/ivMain"
+        android:layout_width="270dp"
+        android:layout_height="639dp"
+        android:layout_alignParentStart="true"
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="71dp"
+        android:layout_marginLeft="71dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="40dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="42dp"
+        android:maxHeight="42dp"
+        android:scaleType="fitXY"/>
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
+    <Button
+        android:id="@+id/buttonLeft"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/buttonRight"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="280dp"
+        android:text="L" />
 
-public class AlbumsFragment extends Fragment implements View.OnClickListener {
+    <Button
+        android:id="@+id/buttonRight"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="280dp"
+        android:text="R" />
 
-    /*@Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_albums, container, false);
-    }*/
 
-    private ArrayList<String> photoGallery;
-    private String currentPhotoPath = null;
-    private int currentPhotoIndex = 0;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //View rootView = inflater.inflate(R.layout.fragment_photos, container, false);
-
-        View rootView = inflater.inflate(R.layout.fragment_albums, container, false);
-
-        Button buttonLeft = (Button) rootView.findViewById(R.id.buttonLeft);
-        Button buttonRight = (Button) rootView.findViewById(R.id.buttonRight);
-
-        buttonLeft.setOnClickListener(this);
-        buttonRight.setOnClickListener(this);
-
-        Date minDate = new Date(Long.MIN_VALUE);
-        Date maxDate = new Date(Long.MAX_VALUE);
-
-        photoGallery = populateGallery(minDate, maxDate);
-        Log.d("onCreate, size", Integer.toString(photoGallery.size()));
-        if (photoGallery.size() > 0)
-            currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        displayPhoto(currentPhotoPath, rootView);
-
-        return rootView;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonLeft:
-                --currentPhotoIndex;
-                break;
-            case R.id.buttonRight:
-                ++currentPhotoIndex;
-                break;
-            default:
-                break;
-        }
-        if (currentPhotoIndex < 0)
-            currentPhotoIndex = 0;
-        if (currentPhotoIndex >= photoGallery.size())
-            currentPhotoIndex = photoGallery.size() - 1;
-
-        currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        Log.d("phpotoleft, size", Integer.toString(photoGallery.size()));
-        Log.d("photoleft, index", Integer.toString(currentPhotoIndex));
-        displayPhoto(currentPhotoPath, view);
-    }
-
-    private ArrayList<String> populateGallery(Date minDate, Date maxDate) {
-        File file = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath(),"/Android/data/com.example.photogallery/files/Pictures");
-
-        photoGallery = new ArrayList<String>();
-        File[] fList = file.listFiles();
-        if (fList != null) {
-            for (File f : file.listFiles()) {
-                photoGallery.add(f.getPath());
-            }
-        }
-        Log.d("photogallery", Integer.toString(fList.length));
-        return photoGallery;
-    }
-
-    private void displayPhoto(String path, View view) {
-        ImageView iv = (ImageView) view.findViewById(R.id.ivMain);
-        iv.setImageBitmap(BitmapFactory.decodeFile(path));
-    }
-}
+</RelativeLayout>
