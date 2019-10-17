@@ -22,7 +22,7 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
     ImageView image;
     private View rootView;
 
-    private int currentPhotoIndex = 2;
+    private int currentPhotoIndex = 1;
     Map<Integer, String> map = new HashMap<Integer, String>();
 
     @Override
@@ -71,7 +71,7 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
 
         List<String> values = new ArrayList(imageEntry.values());
 
-        int i=2;
+        int i=1;
         for(String value: values)
         {
             if(currentPhotoIndex < 0)
