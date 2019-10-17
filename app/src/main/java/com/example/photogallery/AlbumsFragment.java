@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +28,8 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        map = populateGallery();
 
         rootView = inflater.inflate(R.layout.fragment_albums, container, false);
 
@@ -63,13 +64,19 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
-        imageDrawable(currentPhotoIndex);
+        String value = imageDrawable(currentPhotoIndex);
+        setImageResource(value);
     }
 
-    private void imageDrawable(int currentPhotoIndex) {
-        Map<Integer, String> imageEntry = populateGallery();
+    private void setImageResource(String value)
+    {
+        image.setImageResource(getEntry(value));
+    }
 
-        List<String> values = new ArrayList(imageEntry.values());
+    private String imageDrawable(int currentPhotoIndex) {
+        List<String> values = new ArrayList(map.values());
+
+        String value = null;
 
         int i=1;
         if(currentPhotoIndex >= values.size()-1)
@@ -78,26 +85,29 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
             i = 1;
         }
 
-        for(String value: values)
+        if(currentPhotoIndex < 1) {
+            currentPhotoIndex = 1;
+            i = 1;
+        }
+
+        for(i=1; i<values.size(); i++)
         {
-            if(currentPhotoIndex < 0) {
-                currentPhotoIndex = 1;
-                i = 1;
-            }
             if(i == currentPhotoIndex)
             {
-                image.setImageResource(getEntry(imageEntry, value));
+                value = values.get(i);
             }
-            i++;
         }
+
         i = 1;
+        return value;
+
     }
 
-    private Integer getEntry(Map<Integer, String> imageEntry, String value)
+    private Integer getEntry(String value)
     {
         Integer key = 0;
 
-        for (Map.Entry<Integer, String> entry : imageEntry.entrySet()) {
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
             if (entry.getValue().equals(value)) {
                 key =entry.getKey();
             }
