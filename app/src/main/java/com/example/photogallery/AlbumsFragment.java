@@ -72,16 +72,16 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
         List<String> values = new ArrayList(imageEntry.values());
 
         int i=1;
+        if(currentPhotoIndex >= values.size()-1)
+        {
+            currentPhotoIndex =1;
+            i = 1;
+        }
+
         for(String value: values)
         {
-            if(currentPhotoIndex < 0)
-            {
+            if(currentPhotoIndex < 0) {
                 currentPhotoIndex = 1;
-                i =1;
-            }
-            if(currentPhotoIndex >= values.size()-1)
-            {
-                currentPhotoIndex =1;
                 i = 1;
             }
             if(i == currentPhotoIndex)
@@ -90,6 +90,7 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
             }
             i++;
         }
+        i = 1;
     }
 
     private Integer getEntry(Map<Integer, String> imageEntry, String value)
