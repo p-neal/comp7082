@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
     ImageView image;
     private View rootView;
 
-    private int currentPhotoIndex = 0;
+    private int currentPhotoIndex = 2;
     Map<Integer, String> map = new HashMap<Integer, String>();
 
     @Override
@@ -65,37 +66,35 @@ public class AlbumsFragment extends Fragment implements View.OnClickListener {
         imageDrawable(currentPhotoIndex);
     }
 
-    private void imageDrawable(int currentPhotoIndex)
-    {
+    private void imageDrawable(int currentPhotoIndex) {
         Map<Integer, String> imageEntry = populateGallery();
 
         List<String> values = new ArrayList(imageEntry.values());
 
-        int index = values.size();
-
-        if(currentPhotoIndex >= 0)
-        {
-            index = index - currentPhotoIndex;
-        }else
-        {
-            index = index + currentPhotoIndex;
-        }
-
-        int i=0;
+        int i=2;
         for(String value: values)
         {
-            i++;
-            if(i == index)
+            if(currentPhotoIndex < 0)
             {
-                image.setImageResource(getEntry(value));
+                currentPhotoIndex = 1;
+                i =1;
             }
+            if(currentPhotoIndex >= values.size()-1)
+            {
+                currentPhotoIndex =1;
+                i = 1;
+            }
+            if(i == currentPhotoIndex)
+            {
+                image.setImageResource(getEntry(imageEntry, value));
+            }
+            i++;
         }
     }
 
-    private Integer getEntry(String value)
+    private Integer getEntry(Map<Integer, String> imageEntry, String value)
     {
         Integer key = 0;
-        Map<Integer, String> imageEntry = populateGallery();
 
         for (Map.Entry<Integer, String> entry : imageEntry.entrySet()) {
             if (entry.getValue().equals(value)) {
